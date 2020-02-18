@@ -7,5 +7,5 @@ font:
   normal:
     family: Menlo
   use_thin_strokes: true
-# key_bindings:
-  # - { key: N, mods: Command, action: SpawnNewInstance }
+key_bindings:
+  - { key: F, mods: Command, action: ToggleFullscreen }

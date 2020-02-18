@@ -177,8 +177,8 @@ function! ToggleColorScheme()
   endif
 endfunction
 
-map <leader>bg :call ToggleBackground()<CR>
-map <leader>bs :call ToggleColorScheme()<CR>
+map <leader>tb :call ToggleBackground()<CR>
+map <leader>ts :call ToggleColorScheme()<CR>
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
