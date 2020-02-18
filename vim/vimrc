@@ -1,6 +1,6 @@
 syntax on
 filetype plugin on
-set number
+" set number
 set relativenumber
 set noshowmode
 set noshowcmd
@@ -12,7 +12,7 @@ set showtabline=2
 set mouse=nicr
 set shortmess=flinxtToOs
 set completeopt+=noselect
-" set numberwidth=5
+set numberwidth=5
 set cul
 set nohlsearch
 set list
