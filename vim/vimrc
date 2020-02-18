@@ -1,0 +1,190 @@
+syntax on
+filetype plugin on
+set number
+set relativenumber
+set noshowmode
+set noshowcmd
+set updatetime=200
+set nowrap
+set noswapfile
+set laststatus=2
+set showtabline=2
+set mouse=nicr
+set shortmess=flinxtToOs
+set completeopt+=noselect
+set numberwidth=5
+set cul
+set nohlsearch
+set list
+set listchars=tab:\ \ ,trail:·
+let mapleader = " "
+
+tnoremap <C-x> <C-\><C-n>
+inoremap <C-f> <C-x><C-o>
+
+nmap <leader>c <Plug>NERDCommenterToggle
+vmap <leader>c <Plug>NERDCommenterToggle
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>s :w<CR>
+nnoremap <leader>w <C-W><C-W>
+nnoremap <leader>ff :FZF<CR>
+nnoremap <leader>rg :Rg<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>e <C-z>
+nnoremap <leader>bn :bn<CR>
+nnoremap <leader>bp :bp<CR>
+nnoremap <leader>bd :bd<CR>
+nnoremap <leader>us :UltiSnipsEdit 
+
+nnoremap <leader>ig :IndentGuidesToggle<CR>
+
+nnoremap <leader>gs :Git status<CR>
+nnoremap <leader>ga :Git add .<CR>
+nnoremap <leader>gb :Git branch 
+nnoremap <leader>gd :Gdiffsplit<CR>
+nnoremap <leader>dg :diffget<CR>
+nnoremap <leader>dp :diffput<CR>
+nnoremap <leader>gco :Git commit -m "
+nnoremap <leader>gch :Git checkout 
+nnoremap <leader>gm :Git merge 
+
+
+nmap <leader>1 <Plug>lightline#bufferline#go(1)
+nmap <leader>2 <Plug>lightline#bufferline#go(2)
+nmap <leader>3 <Plug>lightline#bufferline#go(3)
+nmap <leader>4 <Plug>lightline#bufferline#go(4)
+nmap <leader>5 <Plug>lightline#bufferline#go(5)
+nmap <leader>6 <Plug>lightline#bufferline#go(6)
+nmap <leader>7 <Plug>lightline#bufferline#go(7)
+nmap <leader>8 <Plug>lightline#bufferline#go(8)
+nmap <leader>9 <Plug>lightline#bufferline#go(9)
+nmap <leader>0 <Plug>lightline#bufferline#go(10)
+
+autocmd FileType go map <leader>fmt :GoFmt<CR>
+autocmd FileType go map <leader>def <Plug>(go-def-tab)
+autocmd FileType go map <leader>imp :GoImports<CR>
+autocmd FileType go map <leader>run :GoRun<CR>
+
+autocmd FileType typescript,typescript.tsx map <leader>def :ALEGoToDefinition<CR>
+autocmd FileType typescript,typescript.tsx map <leader>ref :ALEFindReferences<CR>
+autocmd FileType typescript,typescript.tsx map <leader>ren :ALERename<CR>
+autocmd FileType typescript,typescript.tsx map <leader>fix :ALEFix<CR>
+
+autocmd FileType css,scss,html,javascript,typescript,typescript.tsx setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd CompleteDone * pclose
+
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+augroup END
+
+augroup custom_term
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+augroup END
+
+let g:ale_completion_enabled = 1
+let g:ale_completion_tsserver_autoimport = 1
+
+call plug#begin('~/.vim/plugged')
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go'
+Plug 'nvie/vim-flake8'
+Plug 'omnisharp/omnisharp-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'itchyny/lightline.vim'
+Plug 'niklaas/lightline-gitdiff'
+Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'blueshirts/darcula'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'ayu-theme/ayu-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-abolish'
+Plug 'townk/vim-autoclose'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-eunuch'
+Plug 'w0rp/ale'
+call plug#end()
+
+set termguicolors
+let ayucolor="mirage"
+colorscheme ayu
+
+function! ToggleBackground()
+  set termguicolors
+  if g:ayucolor == "light"
+    let g:ayucolor="mirage"
+  else
+    let g:ayucolor="light"
+  endif
+  colorscheme ayu
+  let g:lightline.colorscheme = 'ayu'
+  runtime autoload/lightline/colorscheme/ayu.vim
+  execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+map <leader>bg :call ToggleBackground()<CR>
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+let g:go_metalinter_autosave=0
+let g:go_auto_type_info = 1
+
+let g:ale_cpp_clang_options = '-std=c++17 -Wall'
+let g:OmniSharp_server_stdio = 1
+let g:ale_fixers = {}
+let g:ale_fixers.go = ['gofmt']
+let g:ale_fixers.rust = ['rustfmt']
+
+let g:ale_linters = {}
+let g:ale_linters.go = ['gobuild']
+let g:ale_linters.cpp = ['clang']
+let g:ale_linters.cs = ['OmniSharp']
+let g:ale_linters.python = ['flake8', 'pylint']
+let g:ale_linters.rust = ['rls']
+
+let g:NERDSpaceDelims = 1
+let g:NERDCreateDefaultMappings = 0
+
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+let g:lightline = {}
+let g:lightline.colorscheme = 'ayu'
+let g:lightline.active = {}
+let g:lightline.active.right = [['lineinfo'], ['filetype']]
+let g:lightline.active.left = [['mode', 'paste'], ['gitbranch', 'gitdiff', 'readonly', 'modified']]
+let g:lightline.component = {}
+let g:lightline.component.lineinfo = "%{printf('%03d / %03d', line('.'), line('$'))} : %-2c"
+let g:lightline.component_function = {'gitbranch': 'FugitiveHead'}
+let g:lightline.tabline = {'left': [['buffers']], 'right': []}
+let g:lightline.component_type = {'buffers': 'tabsel'}
+let g:lightline.component_expand = {'gitdiff': 'lightline#gitdiff#get', 'buffers': 'lightline#bufferline#buffers'}
+let g:lightline#bufferline#show_number  = 2
+let g:lightline#bufferline#filename_modifier = ':t'
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+
