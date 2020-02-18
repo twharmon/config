@@ -12,7 +12,7 @@ set showtabline=2
 set mouse=nicr
 set shortmess=flinxtToOs
 set completeopt+=noselect
-set numberwidth=5
+" set numberwidth=5
 set cul
 set nohlsearch
 set list
@@ -102,8 +102,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-" Plug 'blueshirts/darcula'
-" Plug 'altercation/vim-colors-solarized'
+Plug 'blueshirts/darcula'
+Plug 'altercation/vim-colors-solarized'
 Plug 'ayu-theme/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -117,24 +117,68 @@ call plug#end()
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
+let g:colorscheme = "ayu"
 
 function! ToggleBackground()
-  set termguicolors
-  if g:ayucolor == "light"
-    let g:ayucolor="mirage"
+  if g:colorscheme == "ayu"
+    if g:ayucolor == "light"
+      let g:ayucolor="mirage"
+    else
+      let g:ayucolor="light"
+    endif
+    colorscheme ayu
+    runtime autoload/lightline/colorscheme/ayu.vim
+    execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
   else
-    let g:ayucolor="light"
+    if &background == "light"
+      set background=dark
+    else
+      set background=light
+    endif
   endif
-  colorscheme ayu
-  let g:lightline.colorscheme = 'ayu'
-  runtime autoload/lightline/colorscheme/ayu.vim
-  execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
+  runtime autoload/lightline/colorscheme/solarized.vim
   call lightline#init()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
 
+function! SetColorSchemeAyu()
+  let g:colorscheme = "ayu"
+  set termguicolors
+  let ayucolor="mirage"
+  colorscheme ayu
+  let g:colorscheme = "ayu"
+  runtime autoload/lightline/colorscheme/ayu.vim
+  execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
+  let g:lightline.colorscheme = 'ayu'
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+function! SetColorSchemeSolarized()
+  let g:colorscheme = "solarized"
+  let g:solarized_termcolors=256
+  set termguicolors!
+  set background=dark
+  colorscheme solarized
+  runtime autoload/lightline/colorscheme/solarized.vim
+  let g:lightline.colorscheme = 'solarized'
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+function! ToggleColorScheme()
+  if g:colorscheme == "ayu"
+    call SetColorSchemeSolarized()
+  else
+    call SetColorSchemeAyu()
+  endif
+endfunction
+
 map <leader>bg :call ToggleBackground()<CR>
+map <leader>bs :call ToggleColorScheme()<CR>
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
