@@ -1,6 +1,5 @@
 syntax on
 filetype plugin on
-" set number
 set relativenumber
 set noshowmode
 set noshowcmd
@@ -13,7 +12,6 @@ set mouse=nicr
 set shortmess=flinxtToOs
 set completeopt+=noselect
 set numberwidth=5
-set cul
 set nohlsearch
 set list
 set listchars=tab:\ \ ,trail:·
@@ -47,7 +45,6 @@ nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gco :Git commit -m "
 nnoremap <leader>gch :Git checkout 
 nnoremap <leader>gm :Git merge 
-
 
 nmap <leader>1 <Plug>lightline#bufferline#go(1)
 nmap <leader>2 <Plug>lightline#bufferline#go(2)
@@ -102,8 +99,10 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'blueshirts/darcula'
-Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/solarized'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -114,71 +113,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'w0rp/ale'
 call plug#end()
 
-set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
-let g:colorscheme = "ayu"
-
-function! ToggleBackground()
-  if g:colorscheme == "ayu"
-    if g:ayucolor == "light"
-      let g:ayucolor="mirage"
-    else
-      let g:ayucolor="light"
-    endif
-    colorscheme ayu
-    runtime autoload/lightline/colorscheme/ayu.vim
-    execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
-  else
-    if &background == "light"
-      set background=dark
-    else
-      set background=light
-    endif
-  endif
-  runtime autoload/lightline/colorscheme/solarized.vim
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfunction
-
-function! SetColorSchemeAyu()
-  let g:colorscheme = "ayu"
-  set termguicolors
-  let ayucolor="mirage"
-  colorscheme ayu
-  let g:colorscheme = "ayu"
-  runtime autoload/lightline/colorscheme/ayu.vim
-  execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/ayu.vim')
-  let g:lightline.colorscheme = 'ayu'
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfunction
-
-function! SetColorSchemeSolarized()
-  let g:colorscheme = "solarized"
-  let g:solarized_termcolors=256
-  set termguicolors!
-  set background=dark
-  colorscheme solarized
-  runtime autoload/lightline/colorscheme/solarized.vim
-  let g:lightline.colorscheme = 'solarized'
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfunction
-
-function! ToggleColorScheme()
-  if g:colorscheme == "ayu"
-    call SetColorSchemeSolarized()
-  else
-    call SetColorSchemeAyu()
-  endif
-endfunction
-
-map <leader>tb :call ToggleBackground()<CR>
-map <leader>ts :call ToggleColorScheme()<CR>
+map <leader>bg :call ToggleBackground()<CR>
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -213,12 +148,11 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'ayu'
 let g:lightline.active = {}
 let g:lightline.active.right = [['lineinfo'], ['filetype']]
 let g:lightline.active.left = [['mode', 'paste'], ['gitbranch', 'gitdiff', 'readonly', 'modified']]
 let g:lightline.component = {}
-let g:lightline.component.lineinfo = "%{printf('%03d / %03d', line('.'), line('$'))} : %-2c"
+let g:lightline.component.lineinfo = "%{printf('%03d / %03d', line('.'), line('$'))} | %02c"
 let g:lightline.component_function = {'gitbranch': 'FugitiveHead'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': []}
 let g:lightline.component_type = {'buffers': 'tabsel'}
@@ -232,3 +166,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
+source ~/.config/vim/gruvbox.vim
+" source ~/.config/vim/dracula.vim
+" source ~/.config/vim/solarized.vim
+" source ~/.config/vim/ayu.vim
