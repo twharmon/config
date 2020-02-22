@@ -10,15 +10,17 @@ set laststatus=2
 set showtabline=2
 set mouse=nicr
 set shortmess=flinxtToOs
-set completeopt+=noselect
 set numberwidth=5
 set nohlsearch
+set completeopt+=noinsert
 set list
 set listchars=tab:\ \ ,trail:·
 let mapleader = " "
 
-tnoremap <C-x> <C-\><C-n>
 inoremap <C-f> <C-x><C-o>
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 nmap <leader>c <Plug>NERDCommenterToggle
 vmap <leader>c <Plug>NERDCommenterToggle
@@ -62,7 +64,7 @@ autocmd FileType go map <leader>def <Plug>(go-def-tab)
 autocmd FileType go map <leader>imp :GoImports<CR>
 autocmd FileType go map <leader>run :GoRun<CR>
 
-autocmd FileType typescript,typescript.tsx map <leader>def :ALEGoToDefinition<CR>
+autocmd FileType typescript,typescript.tsx map <leader>def :ALEGoToDefinitionInTab<CR>
 autocmd FileType typescript,typescript.tsx map <leader>ref :ALEFindReferences<CR>
 autocmd FileType typescript,typescript.tsx map <leader>ren :ALERename<CR>
 autocmd FileType typescript,typescript.tsx map <leader>fix :ALEFix<CR>
@@ -166,7 +168,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-source ~/.config/vim/gruvbox.vim
+" source ~/.config/vim/gruvbox.vim
 " source ~/.config/vim/dracula.vim
 " source ~/.config/vim/solarized.vim
-" source ~/.config/vim/ayu.vim
+source ~/.config/vim/ayu.vim
