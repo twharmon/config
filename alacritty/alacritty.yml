@@ -9,3 +9,7 @@ font:
   use_thin_strokes: true
 key_bindings:
   - { key: F, mods: Command, action: ToggleFullscreen }
+  - { key: Up, mods: Shift, action: ScrollPageUp }
+  - { key: Down, mods: Shift, action: ScrollPageDown }
+scrolling:
+  history: 10000
