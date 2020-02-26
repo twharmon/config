@@ -1,0 +1,10 @@
+{
+  "coc.preferences.jumpCommand": "tab drop",
+  "prettier.disableLanguages": ["typescript", "javascript", "typescriptreact"],
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.format.semicolons": "remove",
+  "diagnostic.errorSign": ">>",
+  "diagnostic.warningSign": "--",
+  "diagnostic.infoSign": "••"
+}

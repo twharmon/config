@@ -19,8 +19,16 @@ let mapleader = " "
 
 inoremap <C-f> <C-x><C-o>
 
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
+
+nmap <leader>def <Plug>(coc-definition)
+nmap <leader>ref <Plug>(coc-references)
+nmap <leader>ren <Plug>(coc-rename)
+nmap <leader>fix <Plug>(coc-fix-current)
+nmap <leader>inf :call CocAction('doHover')<CR>
+nmap <leader>imp :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nmap <leader>fmt :call CocAction('format')<CR>
 
 nmap <leader>c <Plug>NERDCommenterToggle
 vmap <leader>c <Plug>NERDCommenterToggle
@@ -35,8 +43,6 @@ nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>us :UltiSnipsEdit 
-
-nnoremap <leader>ig :IndentGuidesToggle<CR>
 
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
@@ -59,16 +65,6 @@ nmap <leader>8 <Plug>lightline#bufferline#go(8)
 nmap <leader>9 <Plug>lightline#bufferline#go(9)
 nmap <leader>0 <Plug>lightline#bufferline#go(10)
 
-autocmd FileType go map <leader>fmt :GoFmt<CR>
-autocmd FileType go map <leader>def <Plug>(go-def-tab)
-autocmd FileType go map <leader>imp :GoImports<CR>
-autocmd FileType go map <leader>run :GoRun<CR>
-
-autocmd FileType typescript,typescript.tsx map <leader>def :ALEGoToDefinitionInTab<CR>
-autocmd FileType typescript,typescript.tsx map <leader>ref :ALEFindReferences<CR>
-autocmd FileType typescript,typescript.tsx map <leader>ren :ALERename<CR>
-autocmd FileType typescript,typescript.tsx map <leader>fix :ALEFix<CR>
-
 autocmd FileType css,scss,html,javascript,typescript,typescript.tsx setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
 
@@ -82,12 +78,9 @@ augroup custom_term
     autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
 augroup END
 
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
-
 call plug#begin('~/.vim/plugged')
 Plug 'rust-lang/rust.vim'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -97,11 +90,9 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'altercation/solarized'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'shinchu/lightline-gruvbox.vim'
@@ -112,42 +103,13 @@ Plug 'tpope/vim-abolish'
 Plug 'townk/vim-autoclose'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
-Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 map <leader>bg :call ToggleBackground()<CR>
 
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-let g:go_metalinter_autosave=0
-let g:go_auto_type_info = 1
-
-let g:ale_cpp_clang_options = '-std=c++17 -Wall'
-let g:OmniSharp_server_stdio = 1
-let g:ale_fixers = {}
-let g:ale_fixers.go = ['gofmt']
-let g:ale_fixers.rust = ['rustfmt']
-
-let g:ale_linters = {}
-let g:ale_linters.go = ['gobuild']
-let g:ale_linters.cpp = ['clang']
-let g:ale_linters.cs = ['OmniSharp']
-let g:ale_linters.python = ['flake8', 'pylint']
-let g:ale_linters.rust = ['rls']
-
 let g:NERDSpaceDelims = 1
 let g:NERDCreateDefaultMappings = 0
-
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
 
 let g:lightline = {}
 let g:lightline.active = {}
@@ -168,7 +130,8 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-" source ~/.config/vim/gruvbox.vim
+source ~/.config/vim/gruvbox.vim
 " source ~/.config/vim/dracula.vim
-" source ~/.config/vim/solarized.vim
-source ~/.config/vim/ayu.vim
+" source ~/.config/vim/ayu.vim
+
+source ~/.config/vim/coc.vim
