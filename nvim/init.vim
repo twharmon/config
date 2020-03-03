@@ -31,8 +31,8 @@ nmap <leader>inf :call CocAction('doHover')<CR>
 nmap <leader>imp :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nmap <leader>fmt :call CocAction('format')<CR>
 
-nmap <leader>c <Plug>NERDCommenterToggle
-vmap <leader>c <Plug>NERDCommenterToggle
+nmap <leader>c gcc
+vmap <leader>c gc
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>w <C-W><C-W>
@@ -66,34 +66,33 @@ nmap <leader>8 <Plug>lightline#bufferline#go(8)
 nmap <leader>9 <Plug>lightline#bufferline#go(9)
 nmap <leader>0 <Plug>lightline#bufferline#go(10)
 
-autocmd FileType css,scss,html,javascript,typescript,typescript.tsx setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType css,scss,html,javascript,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
 
 augroup SyntaxSettings
     autocmd!
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-augroup END
-
-augroup custom_term
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+    autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+    autocmd BufNewFile,BufRead *.scss set filetype=scss
 augroup END
 
 call plug#begin('~/.vim/plugged')
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'leafgarland/typescript-vim'
-Plug 'pangloss/vim-javascript'
+" Plug 'peitalin/vim-jsx-typescript'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'cakebaker/scss-syntax.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
+" Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'ayu-theme/ayu-vim'
@@ -132,7 +131,6 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 source ~/.config/nvim/gruvbox.vim
-" source ~/.config/nvim/dracula.vim
 " source ~/.config/nvim/ayu.vim
 
 source ~/.config/nvim/coc.vim
