@@ -77,16 +77,10 @@ augroup SyntaxSettings
 augroup END
 
 call plug#begin('~/.vim/plugged')
-" Plug 'rust-lang/rust.vim'
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
-" Plug 'peitalin/vim-jsx-typescript'
-" Plug 'leafgarland/typescript-vim'
-" Plug 'pangloss/vim-javascript'
-" Plug 'cakebaker/scss-syntax.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-" Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -102,7 +96,7 @@ Plug 'tpope/vim-abolish'
 Plug 'townk/vim-autoclose'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 map <leader>bg :call ToggleBackground()<CR>

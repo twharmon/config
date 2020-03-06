@@ -1,4 +1,6 @@
 {
+  "tsserver.npm": "/usr/local/bin/npm",
+  "coc.preferences.colorSupport": false,
   "coc.preferences.jumpCommand": "tab drop",
   "prettier.disableLanguages": ["typescript", "javascript", "typescriptreact"],
   "typescript.preferences.quoteStyle": "single",
