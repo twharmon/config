@@ -1,6 +1,6 @@
 syntax on
 filetype plugin on
-set number
+set relativenumber
 set noshowmode
 set noshowcmd
 set updatetime=200
@@ -40,8 +40,6 @@ nnoremap <leader>ff :FZF<CR>
 nnoremap <leader>rg :Rg<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>e <C-z>
-nnoremap <leader>bn :bn<CR>
-nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bd :bd<CR>
 nnoremap <leader>us :UltiSnipsEdit 
 
@@ -69,17 +67,11 @@ nmap <leader>0 <Plug>lightline#bufferline#go(10)
 autocmd FileType css,scss,html,javascript,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
 
-augroup SyntaxSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
-    autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
-    autocmd BufNewFile,BufRead *.scss set filetype=scss
-augroup END
-
 call plug#begin('~/.vim/plugged')
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
+" Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -88,8 +80,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'ayu-theme/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
@@ -99,7 +91,15 @@ Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
-map <leader>bg :call ToggleBackground()<CR>
+augroup SyntaxSettings
+    autocmd!
+    " autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
+    " autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+    autocmd BufNewFile,BufRead *.js set filetype=javascript
+    autocmd BufNewFile,BufRead *.scss set filetype=scss
+augroup END
 
 let g:NERDSpaceDelims = 1
 let g:NERDCreateDefaultMappings = 0
@@ -124,7 +124,36 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-source ~/.config/nvim/gruvbox.vim
-" source ~/.config/nvim/ayu.vim
+let g:lightline.colorscheme = 'gruvbox'
+set termguicolors
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_inverse = 0
+hi! link tsxCloseTagName GruvboxBlue
+set background=dark
+colorscheme gruvbox
+let g:lightline.colorscheme = 'gruvbox'
+set termguicolors
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_inverse = 0
+hi! link tsxCloseTagName GruvboxBlue
+set background=light
+colorscheme gruvbox
+
+function! ToggleBackground()
+  if &background == "dark"
+    set background=light
+  else
+    set background=dark
+  endif
+  runtime autoload/lightline/colorscheme/gruvbox.vim
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+call ToggleBackground()
+
+" colorscheme onedark
+" let g:lightline.colorscheme = 'onedark'
 
 source ~/.config/nvim/coc.vim
