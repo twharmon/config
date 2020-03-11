@@ -10,7 +10,7 @@ set laststatus=2
 set showtabline=2
 set mouse=nicr
 set shortmess=flinxtToOs
-set numberwidth=5
+set numberwidth=4
 set nohlsearch
 set completeopt+=noinsert
 set list
@@ -71,7 +71,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
-" Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -93,8 +92,6 @@ call plug#end()
 
 augroup SyntaxSettings
     autocmd!
-    " autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
-    " autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
     autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
     autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
     autocmd BufNewFile,BufRead *.js set filetype=javascript
@@ -152,6 +149,8 @@ function! ToggleBackground()
 endfunction
 
 call ToggleBackground()
+
+nnoremap <leader>bg :call ToggleBackground() <CR>
 
 " colorscheme onedark
 " let g:lightline.colorscheme = 'onedark'
