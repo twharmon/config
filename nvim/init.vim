@@ -48,14 +48,15 @@ autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
 
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
-nnoremap <leader>gb :Git branch
+nnoremap <leader>gb :Git branch 
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR> s'
-nnoremap <expr> <leader>gp ':Gpush origin ' . gitbranch#name() . '<CR>'
-nnoremap <leader>gch :Git checkout
-nnoremap <leader>gm :Git merge
+nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
+nnoremap <expr> <leader>gpush ':Gpush origin ' . gitbranch#name() . '<CR>'
+nnoremap <leader>gpull :Gpull<CR>
+nnoremap <leader>gch :Git checkout 
+nnoremap <leader>gm :Git merge 
 
 nmap <leader>1 <Plug>lightline#bufferline#go(1)
 nmap <leader>2 <Plug>lightline#bufferline#go(2)
