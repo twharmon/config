@@ -46,19 +46,14 @@ nnoremap <leader>us :UltiSnipsEdit
 autocmd FileType go nnoremap <leader>t :!go test -covermode=atomic -coverprofile=/tmp/profile.out .<CR>
 autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
 
-function Commit()
-	exe ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
-	:sleep 500m
-	:call lightline#update()
-endfunction
-
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gb :Git branch
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <leader>gco :call Commit()<CR>
+nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
+nnoremap <expr> <leader>gp ':Gpush origin ' . gitbranch#name() . '<CR>'
 nnoremap <leader>gch :Git checkout
 nnoremap <leader>gm :Git merge
 
@@ -102,6 +97,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'mike-hearn/base16-vim-lightline'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-abolish'
 Plug 'townk/vim-autoclose'
