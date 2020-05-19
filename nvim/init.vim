@@ -52,7 +52,7 @@ nnoremap <leader>gb :Git branch
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
+nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>:call lightline#update()<CR>'
 nnoremap <leader>gch :Git checkout
 nnoremap <leader>gm :Git merge
 
