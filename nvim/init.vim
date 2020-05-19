@@ -1,6 +1,7 @@
 syntax on
 filetype plugin on
-set relativenumber
+" set relativenumber
+set number
 set noshowmode
 set noshowcmd
 set updatetime=200
@@ -10,7 +11,7 @@ set laststatus=2
 set showtabline=2
 set mouse=nicr
 set shortmess=flinxtToOs
-set numberwidth=4
+set numberwidth=5
 set nohlsearch
 set completeopt+=noinsert
 set list
@@ -40,8 +41,10 @@ nnoremap <leader>ff :FZF<CR>
 nnoremap <leader>rg :Rg<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>e <C-z>
-nnoremap <leader>bd :bd<CR>
 nnoremap <leader>us :UltiSnipsEdit 
+
+autocmd FileType go nnoremap <leader>t :!go test -covermode=atomic -coverprofile=/tmp/profile.out .<CR>
+autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
 
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
@@ -49,7 +52,7 @@ nnoremap <leader>gb :Git branch
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <leader>gco :Git commit -m "
+nnoremap <expr> <leader>gco ':Git commit -m "' . input("Commit message: ") . '"<CR>:call lightline#update()<CR>'
 nnoremap <leader>gch :Git checkout 
 nnoremap <leader>gm :Git merge 
 
@@ -67,11 +70,20 @@ nmap <leader>0 <Plug>lightline#bufferline#go(10)
 autocmd FileType css,scss,html,javascript,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
 
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+    autocmd BufNewFile,BufRead *.js set filetype=javascript
+    autocmd BufNewFile,BufRead *.scss set filetype=scss
+augroup END
+
 call plug#begin('~/.vim/plugged')
 Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
@@ -79,7 +91,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'mike-hearn/base16-vim-lightline'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -89,14 +102,6 @@ Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
-
-augroup SyntaxSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-    autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-    autocmd BufNewFile,BufRead *.js set filetype=javascript
-    autocmd BufNewFile,BufRead *.scss set filetype=scss
-augroup END
 
 let g:NERDSpaceDelims = 1
 let g:NERDCreateDefaultMappings = 0
@@ -115,44 +120,28 @@ let g:lightline.component_expand = {'gitdiff': 'lightline#gitdiff#get', 'buffers
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#filename_modifier = ':t'
 
+set termguicolors
+
+" let g:lightline.colorscheme = 'gruvbox'
+" set background=dark
+" let g:gruvbox_invert_selection = 0
+" let g:gruvbox_inverse = 0
+" hi! link tsxCloseTagName GruvboxBlue
+" colorscheme gruvbox
+
+" runtime autoload/lightline/colorscheme/gruvbox.vim
+" call lightline#init()
+" call lightline#colorscheme()
+" call lightline#update()
+
+let g:lightline.colorscheme = 'base16_default_dark'
+let base16colorspace=256
+colorscheme base16-default-dark
+
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
-
-let g:lightline.colorscheme = 'gruvbox'
-set termguicolors
-let g:gruvbox_invert_selection = 0
-let g:gruvbox_inverse = 0
-hi! link tsxCloseTagName GruvboxBlue
-set background=dark
-colorscheme gruvbox
-let g:lightline.colorscheme = 'gruvbox'
-set termguicolors
-let g:gruvbox_invert_selection = 0
-let g:gruvbox_inverse = 0
-hi! link tsxCloseTagName GruvboxBlue
-set background=light
-colorscheme gruvbox
-
-function! ToggleBackground()
-  if &background == "dark"
-    set background=light
-  else
-    set background=dark
-  endif
-  runtime autoload/lightline/colorscheme/gruvbox.vim
-  call lightline#init()
-  call lightline#colorscheme()
-  call lightline#update()
-endfunction
-
-call ToggleBackground()
-
-nnoremap <leader>bg :call ToggleBackground() <CR>
-
-" colorscheme onedark
-" let g:lightline.colorscheme = 'onedark'
 
 source ~/.config/nvim/coc.vim
