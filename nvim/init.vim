@@ -52,7 +52,6 @@ function Commit()
 	:call lightline#update()
 endfunction
 
-
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gb :Git branch
