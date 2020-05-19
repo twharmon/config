@@ -46,13 +46,21 @@ nnoremap <leader>us :UltiSnipsEdit
 autocmd FileType go nnoremap <leader>t :!go test -covermode=atomic -coverprofile=/tmp/profile.out .<CR>
 autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
 
+function Commit()
+	exe ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
+	:sleep 500m
+	:call lightline#update()
+endfunction
+
+" call Commit()
+
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gb :Git branch
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>:sleep 500m<CR>:call lightline#update()'
+nnoremap <leader>gco :call Commit()
 nnoremap <leader>gch :Git checkout
 nnoremap <leader>gm :Git merge
 
