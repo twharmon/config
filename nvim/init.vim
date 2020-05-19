@@ -56,6 +56,7 @@ nnoremap <expr> <leader>gco ':Git commit -m "' . input("Commit message: ") . '"<
 nnoremap <leader>gch :Git checkout
 nnoremap <leader>gm :Git merge
 
+
 nmap <leader>1 <Plug>lightline#bufferline#go(1)
 nmap <leader>2 <Plug>lightline#bufferline#go(2)
 nmap <leader>3 <Plug>lightline#bufferline#go(3)
