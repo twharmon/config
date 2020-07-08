@@ -1,6 +1,5 @@
 syntax on
 filetype plugin on
-" set relativenumber
 set number
 set noshowmode
 set noshowcmd
@@ -15,6 +14,7 @@ set numberwidth=5
 set nohlsearch
 set completeopt+=noinsert
 set list
+set cursorline
 set listchars=tab:\ \ ,trail:·
 let mapleader = " "
 
@@ -69,7 +69,7 @@ nmap <leader>8 <Plug>lightline#bufferline#go(8)
 nmap <leader>9 <Plug>lightline#bufferline#go(9)
 nmap <leader>0 <Plug>lightline#bufferline#go(10)
 
-autocmd FileType css,scss,html,javascript,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType css,scss,html,javascript,javascript.jsx,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
 
 augroup SyntaxSettings
@@ -92,10 +92,9 @@ Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'mike-hearn/base16-vim-lightline'
-Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-surround'
@@ -111,34 +110,21 @@ let g:NERDCreateDefaultMappings = 0
 
 let g:lightline = {}
 let g:lightline.active = {}
+let g:lightline.colorscheme = 'base16_default_dark'
 let g:lightline.active.right = [['columninfo'], ['lineinfo'], ['filetype']]
-let g:lightline.active.left = [['mode', 'paste'], ['gitbranch', 'gitdiff', 'readonly', 'modified']]
+let g:lightline.active.left = [['mode', 'paste'], ['gitbranch', 'readonly', 'modified']]
 let g:lightline.component = {}
 let g:lightline.component.lineinfo = "%{printf('%03d / %03d', line('.'), line('$'))}"
 let g:lightline.component.columninfo = "%02c"
 let g:lightline.component_function = {'gitbranch': 'FugitiveHead'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': []}
 let g:lightline.component_type = {'buffers': 'tabsel'}
-let g:lightline.component_expand = {'gitdiff': 'lightline#gitdiff#get', 'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#filename_modifier = ':t'
 
 set termguicolors
 
-" let g:lightline.colorscheme = 'gruvbox'
-" set background=dark
-" let g:gruvbox_invert_selection = 0
-" let g:gruvbox_inverse = 0
-" hi! link tsxCloseTagName GruvboxBlue
-" colorscheme gruvbox
-
-" runtime autoload/lightline/colorscheme/gruvbox.vim
-" call lightline#init()
-" call lightline#colorscheme()
-" call lightline#update()
-
-let g:lightline.colorscheme = 'base16_default_dark'
-let base16colorspace=256
 colorscheme base16-default-dark
 
 let g:UltiSnipsExpandTrigger="<tab>"
