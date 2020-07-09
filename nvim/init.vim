@@ -15,6 +15,7 @@ set nohlsearch
 set completeopt+=noinsert
 set list
 set cursorline
+set scrolloff=5
 set listchars=tab:\ \ ,trail:·
 let mapleader = " "
 
@@ -45,6 +46,8 @@ nnoremap <leader>us :UltiSnipsEdit
 
 autocmd FileType go nnoremap <leader>t :!go test -covermode=atomic -coverprofile=/tmp/profile.out .<CR>
 autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
+
+autocmd FileType rust nnoremap <leader>run :!cargo run<CR>
 
 nnoremap <leader>gs :Git status<CR>
 nnoremap <leader>ga :Git add .<CR>
@@ -126,6 +129,7 @@ let g:lightline#bufferline#filename_modifier = ':t'
 set termguicolors
 
 colorscheme base16-default-dark
+highlight LineNr guibg=gray10
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"

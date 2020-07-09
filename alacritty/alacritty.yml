@@ -1,11 +1,19 @@
 font:
   size: 12.0
   offset:
-    y: 22
+    y: 20
+    x: 1
   glyph_offset:
-    y: 11
+    y: 10
   normal:
-    family: Menlo
+    family: Fira Code
+    style: Retina
+  bold:
+    family: Fira Code
+    style: Bold
+  italic:
+    family: Fira Code
+    style: Italic
   use_thin_strokes: true
 key_bindings:
   - { key: F, mods: Command, action: ToggleFullscreen }
