@@ -55,7 +55,7 @@ nnoremap <leader>gb :Git branch
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <expr> <leader>gco ':Gcommit -m "' . input("Commit message: ") . '"<CR>'
+nnoremap <expr> <leader>gco ':Git commit --verbose<CR>'
 nnoremap <expr> <leader>gpush ':Gpush origin ' . gitbranch#name() . '<CR>'
 nnoremap <leader>gpull :Gpull<CR>
 nnoremap <leader>gch :Git checkout 
