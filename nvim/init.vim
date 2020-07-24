@@ -1,6 +1,6 @@
 syntax on
 filetype plugin on
-set number
+set relativenumber
 set noshowmode
 set noshowcmd
 set updatetime=200
@@ -42,7 +42,7 @@ nnoremap <leader>ff :FZF<CR>
 nnoremap <leader>rg :Rg<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>e <C-z>
-nnoremap <leader>us :UltiSnipsEdit 
+tnoremap <C-C> <C-\><C-n>
 
 autocmd FileType go nnoremap <leader>t :!go test -covermode=atomic -coverprofile=/tmp/profile.out .<CR>
 autocmd FileType go nnoremap <leader>run :!go run main.go<CR>
@@ -71,6 +71,7 @@ nmap <leader>7 <Plug>lightline#bufferline#go(7)
 nmap <leader>8 <Plug>lightline#bufferline#go(8)
 nmap <leader>9 <Plug>lightline#bufferline#go(9)
 nmap <leader>0 <Plug>lightline#bufferline#go(10)
+nnoremap <leader>o :%bd\|e#<CR>
 
 autocmd FileType css,scss,html,javascript,javascript.jsx,typescript,typescriptreact,javascriptreact setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 autocmd CompleteDone * pclose
@@ -84,24 +85,18 @@ augroup SyntaxSettings
 augroup END
 
 call plug#begin('~/.vim/plugged')
-Plug 'nvie/vim-flake8'
 Plug 'omnisharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
-Plug 'niklaas/lightline-gitdiff'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'chriskempson/base16-vim'
-Plug 'mike-hearn/base16-vim-lightline'
-Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-abolish'
 Plug 'townk/vim-autoclose'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
@@ -113,7 +108,7 @@ let g:NERDCreateDefaultMappings = 0
 
 let g:lightline = {}
 let g:lightline.active = {}
-let g:lightline.colorscheme = 'base16_default_dark'
+let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.active.right = [['columninfo'], ['lineinfo'], ['filetype']]
 let g:lightline.active.left = [['mode', 'paste'], ['gitbranch', 'readonly', 'modified']]
 let g:lightline.component = {}
@@ -127,13 +122,22 @@ let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#filename_modifier = ':t'
 
 set termguicolors
+let g:gruvbox_invert_selection = 0
+colorscheme gruvbox
 
-colorscheme base16-default-dark
-highlight LineNr guibg=gray10
+function! ToggleBackground()
+  if &background == "dark"
+    set background=light
+  else
+    set background=dark
+  endif
+  runtime autoload/lightline/colorscheme/gruvbox.vim
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+nnoremap <leader>bg :call ToggleBackground() <CR>
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
