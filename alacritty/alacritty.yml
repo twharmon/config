@@ -17,7 +17,7 @@ font:
     x: 1
   glyph_offset:
     x: 0
-    y: 6
+    y: 7
 dynamic_padding: true
 key_bindings:
   - { key: F, mods: Command, action: ToggleFullscreen }
