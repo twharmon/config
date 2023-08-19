@@ -17,7 +17,19 @@ require("lazy").setup({
   { 'nvim-telescope/telescope.nvim', tag = '0.1.2', dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
   { 'lewis6991/gitsigns.nvim' },
+
+  {
+    'VonHeikemen/lsp-zero.nvim',
+  	dependencies = {
+  		'neovim/nvim-lspconfig',
+  		'hrsh7th/nvim-cmp',
+  		'hrsh7th/cmp-nvim-lsp',
+  		'L3MON4D3/LuaSnip',
+    },
+  },
+  { 'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1', cmd = 'TSUpdate' },
 })
+
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
@@ -25,14 +37,13 @@ vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', {})
 vim.keymap.set('n', '<leader>q', '<cmd>quit<cr>', {})
-vim.keymap.set('n', '<leader>c', '<cmd>bclose<cr>', {})
+vim.keymap.set('n', '<leader>c', '<cmd>bdelete<cr>', {})
 
 vim.cmd.colorscheme("catppuccin-macchiato")
 
-
-
-
-
+vim.opt.shortmess:append { c = true }
+vim.opt.showcmd = false
+vim.opt.laststatus = 3
 vim.opt.number = true
 vim.opt.ignorecase = false
 vim.opt.smartcase = false
@@ -42,8 +53,6 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = false
 vim.opt.signcolumn = 'yes:2'
-
-
 
 require('gitsigns').setup{
   on_attach = function(bufnr)
@@ -87,3 +96,34 @@ require('gitsigns').setup{
     -- map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
+
+local function statusline()
+    local set_color_1 = "%#PmenuSel#"
+    local set_color_2 = "%#LineNr#"
+    local file_name = " %f"
+    local modified = "%m"
+    local align_right = "%="
+    local fileencoding = " %{&fileencoding?&fileencoding:&encoding}"
+    local filetype = " %y"
+    local percentage = " %p%%"
+    local linecol = " %l:%c"
+
+    return string.format(
+        "%s %s %s%s %s %s%s%s%s%s",
+        set_color_1,
+        "%{get(b:,'gitsigns_head','')}",
+        set_color_2,
+        file_name,
+        modified,
+        "%{get(b:,'gitsigns_status','')}",
+        align_right,
+        filetype,
+        percentage,
+        linecol
+    )
+end
+
+vim.opt.statusline = statusline()
+
+require('lsp')
+
