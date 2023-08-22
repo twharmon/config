@@ -16,25 +16,27 @@ vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappin
 require("lazy").setup({
   { 'nvim-telescope/telescope.nvim', tag = '0.1.2', dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
-  { 'lewis6991/gitsigns.nvim' },
-
+  { 'lewis6991/gitsigns.nvim', commit = '749267aaa863c30d721c9913699c5d94e0c07dd3' },
   {
     'VonHeikemen/lsp-zero.nvim',
   	dependencies = {
   		'neovim/nvim-lspconfig',
   		'hrsh7th/nvim-cmp',
   		'hrsh7th/cmp-nvim-lsp',
+  		'hrsh7th/cmp-buffer',
+  		'hrsh7th/cmp-cmdline',
   		'L3MON4D3/LuaSnip',
     },
   },
   { 'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1', cmd = 'TSUpdate' },
+  { 'numToStr/Comment.nvim', lazy = false, opts = {} },
 })
-
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>d', builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', {})
 vim.keymap.set('n', '<leader>q', '<cmd>quit<cr>', {})
 vim.keymap.set('n', '<leader>c', '<cmd>bdelete<cr>', {})
@@ -77,19 +79,19 @@ require('gitsigns').setup{
       return '<Ignore>'
     end, {expr=true})
 
-    -- Actions
-    -- map('n', '<leader>hs', gs.stage_hunk)
-    -- map('n', '<leader>hr', gs.reset_hunk)
-    -- map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    -- map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    -- map('n', '<leader>hS', gs.stage_buffer)
-    -- map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hs', gs.stage_hunk)
+    map('n', '<leader>hr', gs.reset_hunk)
+    map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
     -- map('n', '<leader>hR', gs.reset_buffer)
     -- map('n', '<leader>hp', gs.preview_hunk)
-    -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>hb', gs.blame_line)
     -- map('n', '<leader>tb', gs.toggle_current_line_blame)
-    -- map('n', '<leader>hd', gs.diffthis)
-    -- map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>hd', gs.diffthis)
+	map('n', '<leader>he', ':wincmd p | q<cr>')
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
     -- map('n', '<leader>td', gs.toggle_deleted)
 
     -- Text object
@@ -125,5 +127,5 @@ end
 
 vim.opt.statusline = statusline()
 
-require('lsp')
+require('_lsp')
 
