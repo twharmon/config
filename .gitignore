@@ -1,2 +1,4 @@
 .DS_Store
 helix/runtime
+nvim
+nvim-custom
