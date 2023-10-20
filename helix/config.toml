@@ -17,7 +17,7 @@ normal = "block"
 smart-case = false
 
 [editor.statusline]
-left = ["mode", "spinner", "version-control", "workspace-diagnostics"]
+left = ["mode", "version-control", "workspace-diagnostics"]
 center = ["file-name", "file-modification-indicator"]
 right = ["diagnostics", "selections", "primary-selection-length", "position", "total-line-numbers", "file-type"]
 mode.normal = "NORMAL"
