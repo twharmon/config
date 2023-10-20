@@ -4,3 +4,4 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 alias lg=lazygit
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin
