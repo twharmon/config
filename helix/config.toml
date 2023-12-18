@@ -1,4 +1,4 @@
-theme = "catppuccin_mocha"
+theme = "github_dark"
 
 [editor]
 line-number = "relative"
@@ -8,6 +8,11 @@ cursorline = true
 idle-timeout = 50
 true-color=true
 completion-trigger-len = 1
+
+# [editor.indent-guides]
+# render = true
+# character = "▏" # Some characters that work well: "▏", "┆", "┊", "⸽"
+# skip-levels = 1
 
 [editor.cursor-shape]
 insert = "bar"

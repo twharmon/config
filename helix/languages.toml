@@ -9,11 +9,31 @@ name = "rust"
 
 [[language]]
 name = "typescript"
-language-servers = ["tsserver", "eslint"]
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+]
 
 [[language]]
 name = "tsx"
-language-servers = ["tsserver", "eslint"]
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+]
+
+[[language]]
+name = "javascript"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+]
+
+[[language]]
+name = "jsx"
+language-servers = [
+  "typescript-language-server",
+  "eslint",
+]
 
 [language-server.eslint]
 args = ["--stdio"]
@@ -23,7 +43,7 @@ command = "vscode-eslint-language-server"
 format = true
 nodePath = ""
 onIgnoredFiles = "off"
-packageManager = "npm"
+packageManager = "yarn"
 quiet = false
 rulesCustomizations = []
 run = "onType"
@@ -34,3 +54,4 @@ codeActionOnSave = { mode = "all" }
 experimental = { }
 problems = { shortenToSingleLine = false }
 workingDirectory = { mode = "auto" }
+
