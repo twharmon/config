@@ -1,7 +1,5 @@
-# dynamic_padding = true
-
 [colors.primary]
-background = "#1e1e2e"
+background = "#16181a"
 
 [font]
 size = 9
